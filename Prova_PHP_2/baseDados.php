@@ -5,7 +5,7 @@
         private $username    = "root" ; 
         private $password    = "" ; 
         private $dbname    = "dados" ; 
-        private $con ;  
+        private $conn ;  
         //Conexão de banco de dados
         
     public function __construct(){
@@ -31,10 +31,6 @@
         {
             if ($this->validar_RA($RA))
             {   
-                $nome = $_POST['nome'];
-                $sobrenome = $_POST['sobrenome'];
-                $curso = $_POST['curso'];
-                $RA = $_POST['RA'];
                 $sql = "INSERT INTO Alunos ( `nome`, `sobrenome`, `curso`, `RA` ) ";
                 $sql = $sql."VALUES ('".$nome."', '".$sobrenome."', '".$curso."', ".$RA .")";
                 if (mysqli_query($this->conn, $sql)) {
@@ -42,6 +38,7 @@
               } else {
                   echo "Error: " . $sql . "<br>" . mysqli_error($conn);
               }
+             
           }
         }
 
@@ -49,7 +46,7 @@
         public function selecionar_Alunos ()  
         {
             $query = "SELECT * FROM Alunos" ;
-            $result = $this->con->query($query);
+            $result = $this->conn->query($query);
         if ( $result->num_rows > 0 ) {   
             $data = array () ;
             while ( $row = $result->fetch_assoc ()) {  
@@ -63,28 +60,28 @@
         // Busca dados únicos para edição da tabela de alunos
         public function selecionar_Registro ( $id )  
         {
-            $sql = "SELECT * FROM Alunos WHERE id = '$id'" ;
-            $result = $this-> con->sql($sql) ;
+            $query = "SELECT * FROM Alunos WHERE id = '$id'" ;
+            $result = $this->conn->query($query) ;
         if ( $result->num_rows > 0 ) {   
-            $linha = $result->fetch_assoc () ;
-            return $linha ; 
+            $row = $result->fetch_assoc () ;
+            return $row ; 
             } else {
             echo "Registro não encontrado" ; 
             }
         }
         // Atualiza os dados do cliente na tabela do cliente
-        public function atualizar_Alunos ( $postData )  
+        public function atualizar_Alunos ($postData)  
         {
-            $nome = $this ->con -> real_escape_string ( $_POST['unome'] ) ;
-            $sobrenome = $this->con->real_escape_string ( $_POST [ ' uSobrenome'] ) ;
-            $curso = $this->con->real_escape_string ( $_POST [ ' ucurso'] ) ;
-            $RA = $this->con->real_escape_string ( $_POST [ ' uRA'] ) ;
-            $id = $this->con->real_escape_string ( $_POST [ ' id'] ) ;
-        if ( !empty( $id ) && ! empty( $postData )) {  
+            $nome = $this->conn-> real_escape_string ($_POST['unome'] ) ;
+            $sobrenome = $this->conn->real_escape_string ($_POST['usobrenome'] ) ;
+            $curso = $this->conn->real_escape_string ($_POST['ucurso'] ) ;
+            $RA = $this->conn->real_escape_string ($_POST['uRA'] ) ;
+            $id = $this->conn->real_escape_string ($_POST['id'] ) ;
+        if (!empty($id) && !empty($postData)) {  
             $query = "UPDATE Alunos SET nome = '$nome', sobrenome = '$sobrenome', curso = '$curso', RA = '$RA' WHERE id = '$id'" ;
-            $sql = $this-> con->consulta ( $consulta ) ;
+            $sql = $this->conn->query ($query) ;
             if ( $sql == true ) {  
-                header ( "Location:cadastro.php?msg2=update" ) ;
+                header ( "Location:display.php?msg2=update" ) ;
             } else {
                 echo "Falha no registro atualizado, tente novamente!" ; 
             }
@@ -95,9 +92,9 @@
         public function excluir_Aluno( $id )  
         {
             $query = "Delete from Alunos WHERE id = '$id'" ;
-            $sql = $this-> con->query( $query ) ;
+            $sql = $this-> conn->query($query) ;
         if ( $sql == true ) {  
-            header ( "Location:cadastro.php?msg3=delete" ) ;
+            header ( "Location:display.php?msg3=delete" ) ;
         } else {
             echo "O registro não exclui tente novamente" ; 
             }

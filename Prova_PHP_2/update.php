@@ -1,14 +1,14 @@
 <?php
   
-  // Include database file
+  
   include 'baseDados.php';
   $DBMagico = new BancoDados;
-  // Edit customer record
+  // Editar registro
   if(isset($_GET['editId']) && !empty($_GET['editId'])) {
     $editId = $_GET['editId'];
-    $BancoDados = $DBMagico->selecionar_Registro($editId);
+    $Aluno = $DBMagico->selecionar_Registro($editId);
   }
-  // Update Record in customer table
+  // Atualizar registro
   if(isset($_POST['update'])) {
     $DBMagico->atualizar_Alunos($_POST);
   }  
@@ -35,26 +35,26 @@
                     <h4 class="text-white">Atualizar Registros</h4>
                 </div>
                 <div class="card-body bg-light">
-                  <form action="display.php" method="POST">
+                  <form action="update.php" method="POST">
                     <div class="form-group">
                       <label for="nome">Nome:</label>
-                      <input type="text" class="form-control" name="unome" value="<?php echo $BancoDado['nome']; ?>" required="">
+                      <input type="text" class="form-control" name="unome" value="<?php echo $Aluno['nome']; ?>" required="">
                     </div>
                     <div class="form-group">
                       <label for="sobrenome">Sobrenome</label>
-                      <input type="sobrenome" class="form-control" name="usobrenome" value="<?php echo $BancoDado['sobrenome']; ?>" required="">
+                      <input type="sobrenome" class="form-control" name="usobrenome" value="<?php echo $Aluno['sobrenome']; ?>" required="">
                     </div>
                     <div class="form-group">
                       <label for="curso">Curso:</label>
-                      <input type="text" class="form-control" name="ucurso" value="<?php echo $BancoDado['curso']; ?>" required="">
+                      <input type="text" class="form-control" name="ucurso" value="<?php echo $Aluno['curso']; ?>" required="">
                     </div>
                     <div class="form-group">
                       <label for="RA">RA:</label>
-                      <input type="text" class="form-control" name="uRA" value="<?php echo $BancoDado['RA']; ?>" required="">
+                      <input type="text" class="form-control" name="uRA" value="<?php echo $Aluno['RA']; ?>" required="">
                     </div>
                     <div class="form-group">
-                      <input type="hidden" name="id" value="<?php echo $BancoDado['id']; ?>">
-                      <input type="submit" name="Atualizar" class="btn btn-primary" style="float:right;" value="Atualizar">
+                      <input type="hidden" name="id" value="<?php echo $Aluno['id']; ?>">
+                      <input type="submit" name="update" class="btn btn-primary" style="float:right;" value="Atualizar">
                     </div>
                   </form>
                 </div>

@@ -1,9 +1,9 @@
 <?php
   
-  // Include database file
+  // Incluir arquivo de dados
   include 'baseDados.php';
   $DBMagico = new BancoDados;
-  // Delete record from table
+  // excluir registro da tabela
   if(isset($_GET['deleteId']) && !empty($_GET['deleteId'])) {
       $deleteId = $_GET['deleteId'];
       $DBMagico->excluir_Aluno($deleteId);
@@ -28,19 +28,19 @@
     if (isset($_GET['msg1']) == "insert") {
       echo "<div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert'>×</button>
-              Your Registration added successfully
+              Seu registro foi inserido com sucesso!
             </div>";
       } 
     if (isset($_GET['msg2']) == "update") {
       echo "<div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert'>×</button>
-              Your Registration updated successfully
+              Seu registro foi atualizado com sucesso!
             </div>";
     }
     if (isset($_GET['msg3']) == "delete") {
       echo "<div class='alert alert-success alert-dismissible'>
               <button type='button' class='close' data-dismiss='alert'>×</button>
-              Record deleted successfully
+              Registro Excluido com sucesso!
             </div>";
     }
   ?>
@@ -59,19 +59,19 @@
     </thead>
     <tbody>
         <?php 
-          $BancoDados = $DBMagico->selecionar_Alunos (); 
-          foreach ($BancoDados as $BancoDado) {
+          $Alunos = $DBMagico->selecionar_Alunos (); 
+          foreach ($Alunos as $Aluno) {
         ?>
         <tr>
-          <td><?php echo $BancoDado['id'] ?></td>
-          <td><?php echo $BancoDado['nome'] ?></td>
-          <td><?php echo $BancoDado['sobrenome'] ?></td>
-          <td><?php echo $BancoDado['curso'] ?></td>
-          <td><?php echo $BancoDado['RA'] ?></td>
+          <td><?php echo $Aluno['id'] ?></td>
+          <td><?php echo $Aluno['nome'] ?></td>
+          <td><?php echo $Aluno['sobrenome'] ?></td>
+          <td><?php echo $Aluno['curso'] ?></td>
+          <td><?php echo $Aluno['RA'] ?></td>
           <td>
-            <button class="btn btn-primary mr-2"><a href="edit.php?editId=<?php echo $BancoDados['id'] ?>">
+            <button class="btn btn-primary mr-2"><a href="update.php?editId=<?php echo $Aluno['id'] ?>">
               <i class="fa fa-pencil text-white" aria-hidden="true"></i></a></button>
-            <button class="btn btn-danger"><a href="display.php?deleteId=<?php echo $BancoDados['id'] ?>" onclick="confirm('Tem certeza que deseja excluir o registro?')">
+            <button class="btn btn-danger"><a href="display.php?deleteId=<?php echo $Aluno['id'] ?>" onclick="confirm('Tem certeza que deseja excluir o registro?')">
               <i class="fa fa-trash text-white" aria-hidden="true"></i>
             </a></button>
           </td>

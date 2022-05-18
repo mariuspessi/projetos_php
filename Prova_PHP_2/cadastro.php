@@ -4,7 +4,11 @@
   $DBMagico = new BancoDados;
   // Insert Record in customer table
   if(isset($_POST['cadastrar'])) {
-    $DBMagico->adicionar_Aluno($_POST);
+    $nome = $_POST['nome'];
+    $sobrenome = $_POST['sobrenome'];
+    $curso = $_POST['curso'];
+    $RA = $_POST['RA'];
+    $DBMagico->adicionar_Aluno($nome, $sobrenome, $curso, $RA);
   }
 ?>
 <!DOCTYPE html>
@@ -45,7 +49,7 @@
                       <label for="RA">Curso:</label>
                       <input type="text" class="form-control" name="RA" placeholder="Entre com o RA" required="">
                     </div>
-                    <input type="submit" name="cadastrar" class="btn btn-primary" style="float:right;" value="Cadastrar">
+                    <input type="submit" name="cadastrar" class="btn btn-primary"style="float:right;" value="Cadastrar">
                   </form>
                 </div>
                 </div>
